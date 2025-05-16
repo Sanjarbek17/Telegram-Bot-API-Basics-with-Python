@@ -9,4 +9,19 @@ def reply_to_last_user():
     - Extract chat_id
     - Send response message
     """
-    pass
+    url = f"{BASE_URL}/getUpdates"
+    response = requests.get(url)
+
+    data = response.json()
+    updates = data['result']
+    last_update= updates[-1]
+    chat_id = last_update['message']['chat']['id']
+
+    send = BASE_URL + "/sendMessage"
+    
+    requests.post(send, params={
+        'chat_id': chat_id,
+        'text': 'asdf'
+    })
+
+reply_to_last_user()
